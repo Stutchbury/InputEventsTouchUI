@@ -1,13 +1,19 @@
-# TouchScreenEvents
-A TouchScreen library that implements all the [InputEvents::EventButton](https://github.com/Stutchbury/InputEvents/blob/main/docs/EventButton.md) events plus `DRAG` & `DRAGGED` in response to user interaction.
+# InputEventsTouchUI
 
-This library is part of the [InputEvents](https://github.com/Stutchbury/InputEvents) family (and is `namespace`d as such) bringing `EventButton` [events](https://github.com/Stutchbury/InputEvents/blob/main/docs/InputEventTypes.md) to the touch screen. 
+**A touch-driven UI interaction library for Arduino & PlatformIO** — part of the [InputEvents](https://github.com/Stutchbury/InputEvents) family.  
 
-The `EventTouchScreen` is the heart of the library, using a `TouchScreenAdapter` to provide a unified interface via a thin adapter for each underlying touch screen library (pull requests welcome).
+---
 
-In addition, `Region`s and a Widgets are provided, enabling extensive manipulation of rectangular screen areas including a widget base class and specialised touch, button label (for physical buttons), event and virtual pin (to 'virtually' press/release a linked physical button from the touch screen) specialised widget mixins. There is also a widget container, a widget row container and last but not least, a touch keypad widget!
+## Description
 
-All of this is display driver agnostic - that is, although a `draw()` method is specified in the base widget interface, all drawing is implemented in concrete widget classes using your favourite GFX library.
+- **`EventTouchScreen`** extends **[InputEvents](https://github.com/Stutchbury/InputEvents)** to handle touchscreen input with all the familiar [`EventButton`](https://stutchbury.github.io/InputEvents/api/classEventButton.html) events, plus `DRAG` and `DRAGGED`.  
+- Provides a **UI abstraction layer**:
+  - Spatial primitives: `Coords_s`, `TouchPoint_s`, `Region`.  
+  - Widget & icon scaffolding: `BaseWidget`, containers, and mixins (`TouchWidgetMixin` `VirtualPinWidgetMixin`, `ButtonLabelWidgetMixin`, etc.).  
+- Includes specialized widgets like the touch keypad (example pictured below).  
+- **Display-agnostic** — widgets define a `draw()` contract, but rendering is left to your application (use Adafruit GFX, TFT_eSPI, LVGL, or any other graphics library).  
+- For boards/frameworks that support the C `std` library, a screen manager is provided: `EventScreenManager`, `IManagedScreen`, `IScreenRouter` `ScreenTransition`.  
+
 
 This is a concrete implementation of the `BaseTouchKeypadWidget`. The ❌ and ✔️ each respond to both touch *and* the physical buttons below them.
 The screen buttons provide visual feedback when pressed.
@@ -16,8 +22,33 @@ The screen buttons provide visual feedback when pressed.
 
 (This screen is part of the ManualmaticLib project. I will link to the source when I have published it - if you can't wait, chat with me on [Discord](https://discord.gg/GDcEcWPKKm)...)
 
-The touch interactions work very well on capacitive touch panels and better than expected on resistive ones! For everyone accustomed to phone screens, the resistive panel is a particular challenge and for that reason a 'debouncer' (who'd have thought you'd need that?) is included. Refining with `EventTouchScreen::setDebounceInterval()` can dramatically improve the behaviour of resistive touch panels.
 
+---
+
+## Structure
+
+The library is organized into functional layers:
+
+- **EventTouchScreen & TouchPoint_s** — core touch event logic and touch point representation.  
+- **TouchScreenAdapter/** — hardware adapters for different touchscreen controllers.  
+- **TouchKeypad/** — a base class for on-screen keypad widgets.  
+- **ui/** — core widgets, mixins, containers, icons, and geometry for building interactive UI.  
+- **ScreenManager/** — application-level orchestration of screens, routing, and transitions for boards/frameworks that support the C `std` library.  
+
+
+---
+
+## Features
+
+| Feature                       | Benefit                                |
+|-------------------------------|----------------------------------------|
+| Touch adapter abstraction     | Swap drivers without changing UI code  |
+| GFX-agnostic widgets          | Use your favourite rendering library (Adafruit GFX, TFT_eSPI, LVGL etc)  |
+| Event-driven interaction      | Unified with InputEvents’ button model |
+| Extensible widget system      | Write custom widgets with minimal code |
+| Optional screen manager       | Structure apps with multiple screens   |
+
+---
 
 # SUPPORT
 
@@ -25,4 +56,4 @@ Feedback, [bug reports](https://github.com/Stutchbury/TouchScreenEvents/issues) 
 
 Whilst this library is fully functional and broadly tested, it is still a work in progress, so there may be API changes. 
 
-Note: The `IEventScreen` and `EventScreenManager` are not currently available for AVR boards (no `std` library support).
+
