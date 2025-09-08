@@ -6,19 +6,20 @@
 
 ## Description
 
-- **`EventTouchScreen`** extends **[InputEvents](https://github.com/Stutchbury/InputEvents)** to handle touchscreen input with all the familiar [`EventButton`](https://stutchbury.github.io/InputEvents/api/classEventButton.html) events, plus `DRAG` and `DRAGGED`.  
+- <b>`EventTouchScreen`</b> extends **[InputEvents](https://github.com/Stutchbury/InputEvents)** to handle touchscreen input with all the familiar [`EventButton`](https://stutchbury.github.io/InputEvents/api/classEventButton.html) events, plus `DRAG` and `DRAGGED`.  
 - Provides a **UI abstraction layer**:
   - Spatial primitives: `Coords_s`, `TouchPoint_s`, `Region`.  
-  - Widget & icon scaffolding: `BaseWidget`, containers, and mixins (`TouchWidgetMixin` `VirtualPinWidgetMixin`, `ButtonLabelWidgetMixin`, etc.).  
-- Includes specialized widgets like the touch keypad (example pictured below).  
-- **Display-agnostic** — widgets define a `draw()` contract, but rendering is left to your application (use Adafruit GFX, TFT_eSPI, LVGL, or any other graphics library).  
-- For boards/frameworks that support the C `std` library, a screen manager is provided: `EventScreenManager`, `IManagedScreen`, `IScreenRouter` `ScreenTransition`.  
+  - Widget scaffolding: `BaseWidget`, containers, and mixins (`TouchWidgetMixin` `VirtualPinWidgetMixin`, `ButtonLabelWidgetMixin`, etc.).  
+  - Icons - `BaseIcon` accepts parameters to specify colours, padding, disabled state etc (auto greyscaling)
+- Includes the specialized widget <b>`BaseTouchKeypadWidget`</b> (example pictured below).  
+- **Display-agnostic** — widgets & icons define a `draw()` contract, but rendering is left to your application (use Adafruit GFX, TFT_eSPI, LVGL, or any other graphics library).  
+- For boards/frameworks that support the C `std` library, a **screen manager** is provided: `EventScreenManager`, `IManagedScreen`, `IScreenRouter` `ScreenTransition`.  
 
 
 This is a concrete implementation of the `BaseTouchKeypadWidget`. The ❌ and ✔️ each respond to both touch *and* the physical buttons below them.
-The screen buttons provide visual feedback when pressed.
+Both screen & physical buttons provide visual feedback when pressed.
 
-![Offset Keypad example](images/offsetkeypad.jpg)
+<img src="https://raw.githubusercontent.com/Stutchbury/InputEventsTouchUI/main/images/offsetkeypad.jpg" alt="Picture of a keypad" width="300">
 
 (This screen is part of the ManualmaticLib project. I will link to the source when I have published it - if you can't wait, chat with me on [Discord](https://discord.gg/GDcEcWPKKm)...)
 
