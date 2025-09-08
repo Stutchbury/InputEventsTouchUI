@@ -1,0 +1,28 @@
+{
+    "name": "InputEventsTouchUI",
+    "version": "0.5.1",
+    "description": "A touchscreen event and UI foundation library for Arduino/PlatformIO, extending InputEvents for touch with widgets, containers, and screen management.",
+    "keywords": "Arduino, ESP8266, ESP32, Teensy, button",
+    "repository":
+    {
+      "type": "git",
+      "url": "https://github.com/Stutchbury/TouchScreenEvents.git"
+    },
+    "authors":
+    [
+      {
+        "name": "Philip Fletcher",
+        "email": "philip.fletcher@stutchbury.com",
+        "url": "https://stutchbury.com",
+        "maintainer": true
+      }
+    ],
+    "license": "GPL-2.0",
+    "homepage": "https://github.com/Stutchbury/InputEventsTouchUI/",
+    "dependencies": {
+      "stutchbury/InputEvents": "^1.4.0"
+    },
+    "frameworks": "Arduino",
+    "platforms": "*"
+  }
+  
