@@ -6,35 +6,20 @@
 #include "Adafruit_ILI9341.h"
 
 //Include the underlying ToushScreen library
-#include <TouchScreen.h>
+#include <Adafruit_FT6206.h>
 //Then the Adapter for it
-#include "TouchScreenAdapter/AdafruitResistiveTouchScreenAdapter.h"
+#include "TouchScreenAdapter/AdafruitFT6206TouchScreenAdapter.h"
 
 #include "EventTouchScreen.h"
-
-// Using Adafuit defines for easy cut'n'paste!
-// #define YP A2  // must be an analog pin, use "An" notation!
-// #define XM A3  // must be an analog pin, use "An" notation!
-// #define YM 10 //8   // can be a digital pin
-// #define XP 9   // can be a digital pin
-
-#define XP A7  // Y+ must be an analog pin, use "An" notation!
-#define YP A6  // X- must be an analog pin, use "An" notation!
-#define XM A9  // Y- can be a digital pin
-#define YM A8  // X+ can be a digital pin
-
-
-// For better pressure precision, we need to know the resistance
-// between X+ and X- Use any multimeter to read it
-// For the one we're using, it's 300 ohms across the X plate
-const uint16_t TOUCHSCREEN_OHMS = 300;
 
 //By default, display is portrait
 const uint16_t MY_DISPLAY_WIDTH = ILI9341_TFTWIDTH; //240
 const uint16_t MY_DISPLAY_HEIGHT = ILI9341_TFTHEIGHT; //320
 
-const uint8_t MY_TFT_DC = 9; //6; //Change to suit your board
-const uint8_t MY_TFT_CS = 10; // 5; //Change to suit your board
+// const uint8_t MY_TFT_DC = 9; //6; //Change to suit your board
+// const uint8_t MY_TFT_CS = 10; // 5; //Change to suit your board
+const uint8_t MY_TFT_DC = 6; //Change to suit your board
+const uint8_t MY_TFT_CS = 5; //Change to suit your board
 
 using namespace input_events;
 
@@ -42,7 +27,7 @@ using namespace input_events;
 Adafruit_ILI9341 tft = Adafruit_ILI9341(MY_TFT_CS, MY_TFT_DC);
 
 //Create the TouchScreenAdapter for Adafruit's TouchScreen
-AdafruitResistiveTouchScreenAdapter touchAdapter(XP, YP, XM, YM, TOUCHSCREEN_OHMS);
+input_events::AdafruitFT6206TouchScreenAdapter touchAdapter;
 
 //Create the EventTouchScren, passing the TouchScreenAdapter
 EventTouchScreen touchScreen(&touchAdapter);
@@ -127,14 +112,6 @@ void setup() {
 
     touchAdapter.setDisplayWidth(MY_DISPLAY_WIDTH);
     touchAdapter.setDisplayHeight(MY_DISPLAY_HEIGHT);
-
-    //For ResistiveTouch - adjust these values
-    touchAdapter.setMinRawY(160);
-    touchAdapter.setMaxRawY(900);
-    touchAdapter.setMinRawX(100);
-    touchAdapter.setMaxRawX(905);
-    touchAdapter.setMinRawZ(200);
-    touchAdapter.setMaxRawZ(400);
 
     tft.fillScreen(ILI9341_BLACK);
 

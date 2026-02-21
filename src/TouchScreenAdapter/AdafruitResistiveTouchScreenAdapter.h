@@ -68,7 +68,7 @@ public:
 
 
     /**
-     * @brief Destroy the AdafruitResistiveTouchScreen object
+     * @brief Destroy the AdafruitResistiveTouchScreenAdapter object
      * 
      */
     ~AdafruitResistiveTouchScreenAdapter() {
