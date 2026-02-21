@@ -89,7 +89,7 @@ public:
         TouchPoint_s touchpoint;
         // The resistive touch panel will irregularly report touch when at rest
         // I suspect it is the flexible membrane 'relaxing' or a read error in the TouchScreen lib,
-        // so we have to chck if Z, X and Y are within the expected resistance range.
+        // so we have to check if Z, X and Y are within the expected resistance range.
         if ( tsPoint.z > (int16_t)minRawZ && tsPoint.z < (int16_t)maxRawZ
         && tsPoint.x > (int16_t)minRawX && tsPoint.x < (int16_t)maxRawX
         && tsPoint.y > (int16_t)minRawY && tsPoint.y < (int16_t)maxRawY ) {
@@ -125,7 +125,7 @@ public:
         TouchPoint_s touchpoint;
         touchpoint.x = tsPoint.x;
         touchpoint.y = tsPoint.y;
-        touchpoint.z = tsPoint.z;
+        touchpoint.z = tsPoint.z < 0 ? 0 : tsPoint.z; //TSPoint sometimes returns -1 for z which will wrap to 65535 for a uint16_t...
         return touchpoint;
     }
 
